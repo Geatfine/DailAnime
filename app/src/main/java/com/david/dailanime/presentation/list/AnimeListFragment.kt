@@ -51,7 +51,7 @@ class AnimeListFragment : Fragment() {
         Toast.makeText(context,"API Error",Toast.LENGTH_SHORT).show()
     }
     private fun onClickedAnime(anime: Anime) {
-       NavHostFragment.findNavController(this).navigate(R.id.action_listAnime_to_AnimeResume, bundleOf("anime_id" to anime.mal_id))
+       findNavController(this).navigate(R.id.action_listAnime_to_AnimeResume, bundleOf("mal_id" to anime.mal_id))
 
     }
 
