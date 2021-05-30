@@ -16,5 +16,5 @@ L'application a donc comme fonctionnalitées :
 
 On arrive directement sur une liste d'animés 
 
-![Page d'acceuil](images/1.jpg)
+![Page d'acceuil](images/1.JPG)
 
