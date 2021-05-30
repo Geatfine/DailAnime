@@ -11,7 +11,7 @@ L'application a donc comme fonctionnalitées :
 - Stocker des données en format JSON
 - L'utilisation de Singletons
 
-
+Lien du téléchargement de l'application : https://drive.google.com/drive/folders/1Zd-VETbNzpFexOydN7nGnedNVGwLO7PM?usp=sharing
 # Fonctionnement
 
 On arrive directement sur une liste d'animés 
