@@ -64,19 +64,11 @@
         android:layout_marginHorizontal="20sp"
         android:layout_marginTop="30sp"
         android:layout_gravity="bottom|end"
-        app:layout_constraintBottom_toTopOf="@id/back_button"
         app:layout_constraintStart_toStartOf="@id/title_anime"
         app:layout_constraintTop_toTopOf="@id/title_anime"
         app:layout_constraintVertical_bias="0.536" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
