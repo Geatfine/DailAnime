@@ -2,11 +2,16 @@ package com.david.dailanime.presentation.list
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.AsyncTask
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.Switch
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.david.dailanime.R
 import com.google.gson.Gson
@@ -27,12 +32,10 @@ class DailanimeAdapter(private var localDataSet: MutableList<Anime>, private var
     val  gson : Gson = GsonBuilder().setLenient().create()
 
 
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView
         val imageView : ImageView
         val switch : Switch
-
         init {
             // Define click listener for the ViewHolder's View
             textView = view.findViewById<View>(R.id.anime_name) as TextView
@@ -66,6 +69,7 @@ class DailanimeAdapter(private var localDataSet: MutableList<Anime>, private var
 
     }
 
+
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) { // Get element from your dataset at this position and replace the
 // contents of the view with that element
@@ -84,20 +88,22 @@ class DailanimeAdapter(private var localDataSet: MutableList<Anime>, private var
         viewHolder.switch.setOnCheckedChangeListener { buttonView, isChecked ->
 
             if (isChecked) {
-                saveListAnime(localDataSet[position])
+                saveListAnime(localDataSet[position], position)
                 viewHolder.switch.setChecked(true)
             } else {
-                deletefromList(localDataSet[position])
+                deletefromList(localDataSet[position], position)
                 viewHolder.switch.setChecked(false)
+
             }
         }
 
     }
 
-     fun saveListAnime(anime : Anime){
+     fun saveListAnime(anime : Anime, position: Int){
         val jsonAnime : String?
         val animeList : MutableList<Anime>
          val type : Type
+
 
          jsonAnime = sharedPreferences.getString("jsondailanime" , null)
         if(jsonAnime != null){
@@ -112,7 +118,7 @@ class DailanimeAdapter(private var localDataSet: MutableList<Anime>, private var
         }
      }
 
-     fun deletefromList(anime : Anime){
+     fun deletefromList(anime : Anime, position: Int){
         val jsonAnime : String?
         val animeList : MutableList<Anime>
          var i = 0
@@ -124,7 +130,10 @@ class DailanimeAdapter(private var localDataSet: MutableList<Anime>, private var
                 if (anime.mal_id == animeList.get(i).mal_id) {
                     animeList.removeAt(i)
                     localDataSet.remove(anime)
-                    notifyDataSetChanged()
+
+                    Handler(Looper.getMainLooper()).post(Runnable {
+                        notifyDataSetChanged()
+                    })
                     i--
                 }
                 i++
@@ -133,6 +142,9 @@ class DailanimeAdapter(private var localDataSet: MutableList<Anime>, private var
             sharedPreferences.edit().putString("jsondailanime",gson.toJson(animeList)).apply()
         }
      }
+    private fun notifyChange(){
+
+    }
 
     fun getDataFromCache() : MutableList<Anime>{
         val jsonAnime : String?
